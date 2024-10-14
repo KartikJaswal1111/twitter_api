@@ -23,13 +23,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	consumerKey := os.Args[1]
-	consumerSecret := os.Args[2]
+	APIkey := os.Args[1]
+	APIkeySecret := os.Args[2]
 	accessToken := os.Args[3]
 	accessTokenSecret := os.Args[4]
 
 	// Create OAuth config
-	config := oauth1.NewConfig(consumerKey, consumerSecret)
+	config := oauth1.NewConfig(APIkey, APIkeySecret)
 	token := oauth1.NewToken(accessToken, accessTokenSecret)
 	httpClient := config.Client(oauth1.NoContext, token)
 
