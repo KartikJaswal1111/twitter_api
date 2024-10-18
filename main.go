@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/dghubble/oauth1"
+	"github.com/joho/godotenv"
 )
 
 const (
@@ -18,16 +20,16 @@ const (
 
 func main() {
 	// Parse command-line arguments for authorization
-	if len(os.Args) != 5 {
-		fmt.Println("Usage: ./your_program <consumer_key> <consumer_secret> <access_token> <access_token_secret>")
-		os.Exit(1)
+	errone := godotenv.Load()
+	if errone != nil {
+		log.Fatal("Error loading .env file")
 	}
 
-	APIkey := os.Args[1]
-	APIkeySecret := os.Args[2]
-	accessToken := os.Args[3]
-	accessTokenSecret := os.Args[4]
-
+	APIkey := os.Getenv("API_KEY")
+	APIkeySecret := os.Getenv("API_Key_Secret")
+	accessToken := os.Getenv("Access_Token")
+	accessTokenSecret := os.Getenv("Access_Token_Secret")
+	print(APIkey, APIkeySecret, accessToken, accessTokenSecret)
 	// Create OAuth config
 	config := oauth1.NewConfig(APIkey, APIkeySecret)
 	token := oauth1.NewToken(accessToken, accessTokenSecret)
