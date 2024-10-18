@@ -19,7 +19,7 @@ const (
 )
 
 func main() {
-	// Parse command-line arguments for authorization
+
 	errone := godotenv.Load()
 	if errone != nil {
 		log.Fatal("Error loading .env file")
@@ -30,13 +30,12 @@ func main() {
 	accessToken := os.Getenv("Access_Token")
 	accessTokenSecret := os.Getenv("Access_Token_Secret")
 	print(APIkey, APIkeySecret, accessToken, accessTokenSecret)
-	// Create OAuth config
+
 	config := oauth1.NewConfig(APIkey, APIkeySecret)
 	token := oauth1.NewToken(accessToken, accessTokenSecret)
 	httpClient := config.Client(oauth1.NoContext, token)
 
-	// Post a new tweet
-	tweetText := "This is my first tweet as the twitter user" // Replace with your desired tweet
+	tweetText := "This is my first tweet as the twitter user"
 	err := postTweet(httpClient, tweetText)
 	if err != nil {
 		fmt.Println("Error posting tweet:", err)
