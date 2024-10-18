@@ -44,14 +44,6 @@ func main() {
 	}
 	fmt.Println("Tweet posted successfully!")
 
-	// Delete a tweet (replace with a valid tweet ID)
-	tweetID := "<YOUR_TWEET_ID>" // Enter the ID of the tweet you want to delete
-	err = deleteTweet(httpClient, tweetID)
-	if err != nil {
-		fmt.Println("Error deleting tweet:", err)
-		return
-	}
-	fmt.Println("Tweet deleted successfully!")
 }
 
 func postTweet(client *http.Client, text string) error {
@@ -84,30 +76,5 @@ func postTweet(client *http.Client, text string) error {
 	}
 
 	fmt.Println("Tweet created: https://twitter.com/status/" + tweetData["id_str"].(string))
-	return nil
-}
-
-func deleteTweet(client *http.Client, tweetID string) error {
-	url := fmt.Sprintf(tweetDeleteURL, tweetID)
-	req, err := http.NewRequest("POST", url, nil)
-	if err != nil {
-		return err
-	}
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return fmt.Errorf("Error deleting tweet: %s", err)
-		}
-		return fmt.Errorf("Error deleting tweet: %s", string(body))
-	}
-
-	fmt.Println("Tweet deleted successfully!")
 	return nil
 }
