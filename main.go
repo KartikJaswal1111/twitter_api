@@ -76,4 +76,5 @@ func postTweet(client *http.Client, text string) error {
 
 	fmt.Println("Tweet created: https://twitter.com/status/" + tweetData["id_str"].(string))
 	return nil
+
 }
